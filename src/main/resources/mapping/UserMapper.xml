@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jk.mapper.UserMapper">
+ <!-- <resultMap id="BaseResultMap" type="com.jk.model.User">
+    <id column="ID" jdbcType="VARCHAR" property="id" />
+    <result column="NAME" jdbcType="VARCHAR" property="name" />
+    <result column="PWD" jdbcType="VARCHAR" property="pwd" />
+    <result column="CREATEDATETIME" jdbcType="TIMESTAMP" property="createdatetime" />
+    <result column="MODIFYDATETIME" jdbcType="TIMESTAMP" property="modifydatetime" />
+  </resultMap>-->
+      <select id="queryList" resultType="com.jk.model.User">
+        select * from t_user
+      </select>
+
+    <select id="queryOrgTree" resultType="com.jk.model.TreeModel">
+            select * from t_tree
+     </select>
+
+    <select id="queryGridTree" resultType="com.jk.model.Organization">
+        select * from t_organization where pid = #{pid}
+    </select>
+
+    <select id="queryExportExcel" resultType="com.jk.model.Organization">
+        select * from t_organization
+    </select>
+
+    <insert id="addImportExcel">
+        insert into t_organization(id,ocode,text,onickname,pid,otype) values(#{id},#{ocode},#{text},#{onickname},#{pid},#{otype})
+    </insert>
+
+    <delete id="deleteOrganization">
+        delete from t_organization where id in (${id})
+    </delete>
+
+    <insert id="saveOrganization">
+        insert into t_organization values(#{id},#{ocode},#{text},#{onickname},#{pid},#{otype},#{ofunctionary},#{ocommand},#{otelphone},#{otel},#{ofax},#{opostcode},#{ourl},#{oaddress},#{ooptions},#{oinfor},#{oorder},#{statesss})
+    </insert>
+
+    <select id="queryOrganizationById" resultType="com.jk.model.Organization">
+         select * from t_organization where id = #{id}
+    </select>
+
+    <update id="updateOrganization">
+        update t_organization set ocode=#{ocode},text=#{text},onickname=#{onickname},pid=#{pid},otype=#{otype},ofunctionary=#{ofunctionary},ocommand=#{ocommand},otel=#{otel},ofax=#{ofax},opostcode=#{opostcode},ourl=#{ourl},oaddress=#{oaddress},ooptions=#{ooptions},oinfor=#{oinfor},oorder=#{oorder},statesss=#{statesss} where id =#{id}
+    </update>
+</mapper>
